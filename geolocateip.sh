@@ -1,9 +1,14 @@
 #!/bin/bash
 # A simple geolocation script
 
-if [ -z $1 ]; then
-	echo "Missing argument: IP address."
+main() {
+    IP="$1"
+    COUNTRY=$(curl -s http://api.db-ip.com/v2/free/$IP/countryName)
+    echo "$IP: $COUNTRY"
+}
+if [ -z "$1" ]; then
+    echo "Missing argument: IP address."
+    exit 1
 else
-	IP=$1
-	curl http://api.db-ip.com/v2/free/$IP
+    main "$1"
 fi
